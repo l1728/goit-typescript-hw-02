@@ -9,20 +9,10 @@ import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ImageModal from '../ImageModal/ImageModal';
+import { Image } from './App.types';
 
 const ACCESS_KEY = '5jOTyfTQTdUdZH7uunAK7km41pZDP7lSpdm5ob9thZQ';
 
-type Image = {
-  id: string;
-  alt_description: string;
-  urls: {
-    regular: string;
-  };
-  user: {
-    name: string;
-  };
-  likes: number;
-};
 
 
 const App = () => {
