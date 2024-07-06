@@ -12,20 +12,33 @@ import ImageModal from '../ImageModal/ImageModal';
 
 const ACCESS_KEY = '5jOTyfTQTdUdZH7uunAK7km41pZDP7lSpdm5ob9thZQ';
 
+type Image = {
+  id: string;
+  alt_description: string;
+  urls: {
+    regular: string;
+  };
+  user: {
+    name: string;
+  };
+  likes: number;
+};
+
+
 const App = () => {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [query, setQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
 
   // Функція для отримання зображень з сервера за допомогою API Unsplash
-  const fetchImages = useCallback(async () => {
+  const fetchImages = useCallback(async (): Promise<void> => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(
+      const response = await axios.get<{ results: Image[] }>(
         'https://api.unsplash.com/search/photos',
         {
           params: {
@@ -39,9 +52,13 @@ const App = () => {
         }
       );
       setImages(prevImages => [...prevImages, ...response.data.results]);
-    } catch (error) {
-      setError(error.message);
-    } finally {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+      } finally {
       setLoading(false);
     }
   }, [query, page]);
@@ -53,7 +70,7 @@ const App = () => {
     }
   }, [query, page, fetchImages]);
 
-  const handleSearch = newQuery => {
+  const handleSearch = (newQuery: string) => {
     if (newQuery.trim() === '') {
       toast.error('Please enter a search term.');
       return;
@@ -76,7 +93,7 @@ const App = () => {
     setSelectedImage(null);
   };
 
-  const openModal = image => {
+  const openModal = (image: Image) => {
     setSelectedImage(image);
   };
 
