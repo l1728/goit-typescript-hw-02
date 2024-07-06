@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import PropTypes from 'prop-types';
 import toast, { Toaster } from 'react-hot-toast';
 import style from '../SearchBar/SearchBar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const SearchBar = ({ onSubmit }) => {
-  const [input, setInput] = useState('');
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+}
 
-  const handleSubmit = e => {
+
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
+  const [input, setInput] = useState<string>('');
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.trim() === '') {
       toast.error('Please enter a search term.');
@@ -17,6 +23,12 @@ const SearchBar = ({ onSubmit }) => {
     onSubmit(input);
     setInput('');
   };
+
+   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+   
 
   return (
     <header className={style.searchBar}>
@@ -29,14 +41,14 @@ const SearchBar = ({ onSubmit }) => {
             autoFocus
             placeholder="Search images and photos"
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={handleChange}
           />
           <button type="submit">
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </div>
       </form>
-      <Toaster position="top-center" reversOrder={false}></Toaster>
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
     </header>
   );
 };

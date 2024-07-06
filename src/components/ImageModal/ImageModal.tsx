@@ -1,22 +1,23 @@
 // import PropTypes from 'prop-types';
 // import { number, string } from 'yup';
+import { Image } from '../types';
 import style from './ImageModal.module.css';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-interface Image {
-  urls: {
-    regular: string;
-  };
-  alt_description: string;
-  description?: string;
+// interface Image {
+//   urls: {
+//     regular: string;
+//   };
+//   alt_description: string;
+//   description?: string;
 
-  user: {
-    name: string;
-  };
-  likes: number;
-}
+//   user: {
+//     name: string;
+//   };
+//   likes: number;
+// }
 
 interface ImageModalProps {
   isOpen: boolean;

@@ -1,12 +1,20 @@
 // import PropTypes from 'prop-types';
+import { Image } from '../types';
 import style from './ImageCard.module.css';
 
-interface Image {
-  urls: {
-    small: string;
-  };
-  alt_description: string;
-  }
+// export interface Image {
+//   id: string;
+//   urls: {
+//     small: string;
+//     regular?: string;
+//   };
+//   alt_description?: string;
+//   description?: string;
+//   user?: {
+//     name: string;
+//   };
+//   likes?: number;
+// }
 
 interface ImageCardProps {
   image: Image;
