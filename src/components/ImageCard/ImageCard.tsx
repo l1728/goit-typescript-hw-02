@@ -1,5 +1,5 @@
 // import PropTypes from 'prop-types';
-import { Image } from '../types';
+import { Image } from '../App/App.types';
 import style from './ImageCard.module.css';
 
 // export interface Image {

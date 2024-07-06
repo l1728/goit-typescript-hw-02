@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import style from './ImageGallery.module.css';
 import ImageCard from '../ImageCard/ImageCard';
-import { Image } from '../types';
+import { Image } from '../App/App.types';
 
 // export interface Image {
 //   id: string;
